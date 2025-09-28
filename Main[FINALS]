@@ -13,7 +13,7 @@ float getGrade(float average) {
     else if (average >= 84) return 2.5;
     else if (average >= 82) return 2.75;
     else if (average >= 80) return 3.0;
-    else return 5.0; // below 80 means failing grade
+    else return 5.0;
 }
 
 int main() {
@@ -32,35 +32,78 @@ int main() {
     cout << "Enter Birth Year: ";
     cin >> birthYear;
 
-    // C. Input Validation: Keeps asking until user enters valid grade (0-100)
-    do {
-        cout << "\nEnter Math Grade (0-100): ";
-        cin >> math;
-    } while (math < 0 || math > 100);
+    // C. Input Validation: Rejects invalid grades (must be 0-100)
+    cout << "\nEnter your grades for the following subjects:" << endl;
 
-    do {
-        cout << "Enter Science Grade (0-100): ";
-        cin >> science;
-    } while (science < 0 || science > 100);
+    cout << "Math: ";
+    cin >> math;
+    if (math < 0 || math > 100) {
+        cout << "INVALID NUMERICAL GRADE, must be 0-100" << endl;
+        return 0;
+    } else {
+        cout << "Grade is valid" << endl;
+    }
 
-    do {
-        cout << "Enter English Grade (0-100): ";
-        cin >> english;
-    } while (english < 0 || english > 100);
+    cout << "Science: ";
+    cin >> science;
+    if (science < 0 || science > 100) {
+        cout << "INVALID NUMERICAL GRADE, must be 0-100" << endl;
+        return 0;
+    } else {
+        cout << "Grade is valid" << endl;
+    }
 
-    do {
-        cout << "Enter History Grade (0-100): ";
-        cin >> history;
-    } while (history < 0 || history > 100);
+    cout << "English: ";
+    cin >> english;
+    if (english < 0 || english > 100) {
+        cout << "INVALID NUMERICAL GRADE, must be 0-100" << endl;
+        return 0;
+    } else {
+        cout << "Grade is valid" << endl;
+    }
 
-    do {
-        cout << "Enter Art Grade (0-100): ";
-        cin >> art;
-    } while (art < 0 || art > 100);
+    cout << "History: ";
+    cin >> history;
+    if (history < 0 || history > 100) {
+        cout << "INVALID NUMERICAL GRADE, must be 0-100" << endl;
+        return 0;
+    } else {
+        cout << "Grade is valid" << endl;
+    }
 
+    cout << "Art: ";
+    cin >> art;
+    if (art < 0 || art > 100) {
+        cout << "INVALID NUMERICAL GRADE, must be 0-100" << endl;
+        return 0;
+    } else {
+        cout << "Grade is valid" << endl;
+    }
+
+    //  Grade Statistics: Calculate average, highest, lowest, passing subjects
     float average = (math + science + english + history + art) / 5.0;
     float gwa = getGrade(average);
 
+    float highest = math;
+    if (science > highest) highest = science;
+    if (english > highest) highest = english;
+    if (history > highest) highest = history;
+    if (art > highest) highest = art;
+
+    float lowest = math;
+    if (science < lowest) lowest = science;
+    if (english < lowest) lowest = english;
+    if (history < lowest) lowest = history;
+    if (art < lowest) lowest = art;
+
+    int passed = 0;
+    if (math >= 60) passed++;
+    if (science >= 60) passed++;
+    if (english >= 60) passed++;
+    if (history >= 60) passed++;
+    if (art >= 60) passed++;
+
+    //  Report Card Output
     cout << "\n       STUDENT REPORT CARD" << endl;
     cout << "========================================" << endl;
 
@@ -80,6 +123,9 @@ int main() {
 
     cout << "\nGRADE STATISTICS:" << endl;
     cout << "Average Grade: " << average << "%" << endl;
+    cout << "Highest Grade: " << highest << "%" << endl;
+    cout << "Lowest Grade: " << lowest << "%" << endl;
+    cout << "Subjects Passed: " << passed << " out of 5" << endl;
     cout << "GWA: " << gwa << endl;
 
     // B. DL Check: Determines if student qualifies for Director's List
@@ -92,5 +138,3 @@ int main() {
 
     return 0;
 }
-
-
