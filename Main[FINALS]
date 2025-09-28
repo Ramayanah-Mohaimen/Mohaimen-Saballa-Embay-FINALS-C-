@@ -2,39 +2,7 @@
 #include <string>
 using namespace std;
 
-// ADVANCED FEATURE 1: Function that calculates the average of 5 subjects
-float calculateAverage(float g1, float g2, float g3, float g4, float g5) {
-    return (g1 + g2 + g3 + g4 + g5) / 5.0;
-}
-
-float findHighest(float g1, float g2, float g3, float g4, float g5) {
-    float highest = g1;
-    if (g2 > highest) highest = g2;
-    if (g3 > highest) highest = g3;
-    if (g4 > highest) highest = g4;
-    if (g5 > highest) highest = g5;
-    return highest;
-}
-
-float findLowest(float g1, float g2, float g3, float g4, float g5) {
-    float lowest = g1;
-    if (g2 < lowest) lowest = g2;
-    if (g3 < lowest) lowest = g3;
-    if (g4 < lowest) lowest = g4;
-    if (g5 < lowest) lowest = g5;
-    return lowest;
-}
-
-int countPassing(float g1, float g2, float g3, float g4, float g5) {
-    int count = 0;
-    if (g1 >= 60) count++;
-    if (g2 >= 60) count++;
-    if (g3 >= 60) count++;
-    if (g4 >= 60) count++;
-    if (g5 >= 60) count++;
-    return count;
-}
-
+// A. GPA Converter: Converts average percentage into GWA (1.0 - 5.0 scale)
 float getGrade(float average) {
     if (average >= 96) return 1.0;
     else if (average >= 94) return 1.25;
@@ -45,7 +13,7 @@ float getGrade(float average) {
     else if (average >= 84) return 2.5;
     else if (average >= 82) return 2.75;
     else if (average >= 80) return 3.0;
-    else return 5.0;
+    else return 5.0; // below 80 means failing grade
 }
 
 int main() {
@@ -64,43 +32,33 @@ int main() {
     cout << "Enter Birth Year: ";
     cin >> birthYear;
 
-    if (age < 5 || age > 100) {
-        cout << "\nERROR: Age entered is not valid!" << endl;
-        return 1;
-    }
-    if (gradeLevel < 1 || gradeLevel > 12) {
-        cout << "\nERROR: Grade level must be between 1 and 12!" << endl;
-        return 1;
-    }
-    if (birthYear < 1900 || birthYear > 2025) {
-        cout << "\nERROR: Birth year is not realistic!" << endl;
-        return 1;
-    }
+    // C. Input Validation: Keeps asking until user enters valid grade (0-100)
+    do {
+        cout << "\nEnter Math Grade (0-100): ";
+        cin >> math;
+    } while (math < 0 || math > 100);
 
-    cout << "\nEnter Grades (0-100)\n";
-    cout << "Math: ";
-    cin >> math;
-    cout << "Science: ";
-    cin >> science;
-    cout << "English: ";
-    cin >> english;
-    cout << "History: ";
-    cin >> history;
-    cout << "Art: ";
-    cin >> art;
+    do {
+        cout << "Enter Science Grade (0-100): ";
+        cin >> science;
+    } while (science < 0 || science > 100);
 
-    if (math < 0 || math > 100 || science < 0 || science > 100 ||
-        english < 0 || english > 100 || history < 0 || history > 100 || art < 0 || art > 100) {
-        cout << "\nERROR: Grades must be between 0 and 100 only!" << endl;
-        return 1;
-    }
+    do {
+        cout << "Enter English Grade (0-100): ";
+        cin >> english;
+    } while (english < 0 || english > 100);
 
-    // ADVANCED FEATURE 2: Program automatically finds the highest and lowest grade
-    float average = calculateAverage(math, science, english, history, art);
-    float highest = findHighest(math, science, english, history, art);
-    float lowest = findLowest(math, science, english, history, art);
+    do {
+        cout << "Enter History Grade (0-100): ";
+        cin >> history;
+    } while (history < 0 || history > 100);
 
-    int passing = countPassing(math, science, english, history, art);
+    do {
+        cout << "Enter Art Grade (0-100): ";
+        cin >> art;
+    } while (art < 0 || art > 100);
+
+    float average = (math + science + english + history + art) / 5.0;
     float gwa = getGrade(average);
 
     cout << "\n       STUDENT REPORT CARD" << endl;
@@ -110,7 +68,7 @@ int main() {
     cout << "Name: " << name << endl;
     cout << "ID: " << id << endl;
     cout << "Age: " << age << " years old" << endl;
-    cout << "Grade Level: " << gradeLevel << "th Grade" << endl;
+    cout << "Grade Level: " << gradeLevel << endl;
     cout << "Birth Year: " << birthYear << endl;
 
     cout << "\nSUBJECT GRADES:" << endl;
@@ -122,13 +80,9 @@ int main() {
 
     cout << "\nGRADE STATISTICS:" << endl;
     cout << "Average Grade: " << average << "%" << endl;
-    cout << "Highest Grade: " << highest << "%" << endl;
-    cout << "Lowest Grade: " << lowest << "%" << endl;
-    cout << "Subjects Passing: " << passing << " out of 5" << endl;
+    cout << "GWA: " << gwa << endl;
 
-    cout << "\nGWA: " << gwa << endl;
-
-    // ADVANCED FEATURE 3: Checks if student qualifies for Director’s List
+    // B. DL Check: Determines if student qualifies for Director's List
     if (gwa <= 1.5)
         cout << "Director’s List Status: YES (Congratulations!)" << endl;
     else
@@ -138,4 +92,5 @@ int main() {
 
     return 0;
 }
+
 
